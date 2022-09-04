@@ -17,6 +17,10 @@ public class Search {
 				bottom = middle + 1;
 			}
 		}
-		return top;
+		if (array[top] == k){
+			return top;
+		} else {
+			return -1;
+		}
 	}	
 }
