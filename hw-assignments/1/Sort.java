@@ -15,7 +15,7 @@ public class Sort {
 
 	public static boolean my_sort(int[] array){
 		boolean done = true;
-		while(true) {
+		while (true){
 			done = true;
 			for (int i = 0; i < array.length; i++){
 				if (i != array.length - 1){
