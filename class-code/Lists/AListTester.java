@@ -4,13 +4,18 @@ public class AListTester {
 
 		list.append("hello");
 		System.out.println(list);
+		list.append("world");
+		System.out.println(list);
 		list.insert("blah", 1);
 		System.out.println(list);
 		list.insert("first", 0);
 		System.out.println(list.length());
 		System.out.println(list);
 		list.remove(0);
-
+		list.remove(0);
+		list.remove(1);
+		System.out.println(list);
+		list.remove(1);
 		System.out.println(list);
 
 	}
