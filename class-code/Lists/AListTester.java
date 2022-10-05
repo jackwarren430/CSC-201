@@ -10,7 +10,6 @@ public class AListTester {
 		System.out.println(list.length());
 		System.out.println(list);
 		list.remove(0);
-
 		System.out.println(list);
 
 	}
