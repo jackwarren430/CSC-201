@@ -8,16 +8,16 @@ public class AList implements MyList {
 		length = 0;
 	}
 
-	public void append(Object e){
+	public void append(Object item){
 		if (length > arr.length){
 			extendArr();
 		}
-		arr[length] = e;
+		arr[length] = item;
 		length++;
 	}
 
 	public Object remove(int pos){
-		if (length <= 0){
+		if (length <= 0 || pos >= length){
 			return null;
 		}
 		Object hold = arr[pos];
@@ -29,18 +29,17 @@ public class AList implements MyList {
 		return hold;
 	}
 
-	public void insert(Object e, int pos){
+	public void insert(Object item, int pos){
 		if (pos > length || pos < 0){
 			return;
 		}
-		if (length > arr.length){
+		if (length >= arr.length){
 			extendArr();
 		}
-		Object hold = arr[length - 1];
-		for(int i = length - 2; i > pos; i--){
-			arr[i] = arr[i + 1];
+		for(int i = length - 1; i >= pos; i--){
+			arr[i + 1] = arr[i];
 		}
-		arr[pos] = e;
+		arr[pos] = item;
 		length++;
 	}
 
