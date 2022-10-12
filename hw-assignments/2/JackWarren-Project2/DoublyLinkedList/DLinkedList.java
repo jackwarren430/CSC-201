@@ -9,66 +9,117 @@ public class DLinkedList implements MyList{
     public DLinkedList(){
         head = new Node(null);
         tail = new Node(null);
-        head.right = tail;
-        tail.left = head;
+        head.next = tail;
+        tail.prev = head;
         size = 0;
     }
 
     public void append(Object item){
         Node toAdd = new Node(item);
-        toAdd.left = tail.left;
-        toAdd.right = tail;
-        tail.left.right = toAdd;
-        tail.left = toAdd;
+        toAdd.prev = tail.prev;
+        toAdd.next = tail;
+        tail.prev.next = toAdd;
+        tail.prev = toAdd;
+        size++;
     }
 
     public void insert(int index, Object item){
-
+        if (index < 0 || index > size) {
+            System.out.println("ERROR: index " + index + " out of bound for length " + size);
+            return;
+        } else if (index == size) {
+            append(item);
+            return;
+        }
+        Node curr = head;
+        for (int i = 0; i < index; i++){
+            curr = curr.next;
+        }
+        Node toAdd = new Node(item);
+        toAdd.next = curr.next;
+        toAdd.prev = curr;
+        curr.next.prev = toAdd;
+        curr.next = toAdd;
+        size++;
     }
 
     public void clear(){
-
+        head.next = tail;
+        tail.prev = head;
+        size = 0;
     }
 
     public boolean isEmpty(){
-        return true;
+        if (size == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int size(){
-        return 0;
+        return size;
     }
 
     public boolean replace(int index, Object item){
+        if (index < 0 || index > size - 1){
+            System.out.println("ERROR: index " + index + " out of bound for length " + size);
+            return false;
+        }
+        Node curr = head;
+        for (int i = 0; i <= index; i++){
+            curr = curr.next;
+        }
+        curr.data = item;
         return true;
     }
 
     public void remove(int index){
-
+        if (index < 0 || index > size - 1){
+            System.out.println("ERROR: index " + index + " out of bound for length " + size);
+            return;
+        }
+        Node curr = head;
+        for (int i = 0; i < index; i++){
+            curr = curr.next;
+        }
+        curr.next.next.prev = curr;
+        curr.next = curr.next.next;
+        size--;
     }
 
     public Object get(int index){
-        return 1;
+        if (index < 0 || index > size - 1){
+            System.out.println("ERROR: index " + index + " out of bound for length " + size);
+            return null;
+        }
+        Node curr = head;
+        for (int i = 0; i <= index; i++){
+            curr = curr.next;
+        }
+        return curr.data;
     }
 
     public String toString(){
         Node curr = head;
         String toReturn = "";
-        for (int i = 0; i <= size; i++){
-            toReturn += curr.right.data + ", ";
+        for (int i = 0; i < size; i++){
+            toReturn += curr.next.data + ", ";
+            curr = curr.next;
         }
         return toReturn;
     }
 
     private class Node{
         //a private nested Node class that users cannot access.
-        private Object data;
-        private Node left;
-        private Node right;
+        public Object data;
+        public Node prev;
+        public Node next;
         
         private Node(Object data){
             this.data = data;
-            left = null;
-            right = null;
+            prev = null;
+            next = null;
         }
     }
 }
