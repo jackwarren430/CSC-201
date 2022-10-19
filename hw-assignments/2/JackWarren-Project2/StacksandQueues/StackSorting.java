@@ -18,10 +18,14 @@ public class StackSorting{
                     s2.push(hold);
                 }
             }
+            System.out.println("----------");
             while (!s2.empty()) {
                 hold = s2.pop();
+
+                System.out.println("hold: " + hold);
                 if (!s2.empty() && hold > s2.peek()){
                     check = true;
+
                 }
                 s.push(hold);
             }
