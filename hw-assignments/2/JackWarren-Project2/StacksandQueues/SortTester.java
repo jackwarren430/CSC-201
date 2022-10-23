@@ -16,8 +16,7 @@ public class SortTester {
 		stack.push(5);
 		stack.push(7);
 		stack.push(2);
-		stack.push(6);
-		stack.push(1);
+		
 		stack = StackSorting.sort(stack);
 
 		System.out.println("\n");
