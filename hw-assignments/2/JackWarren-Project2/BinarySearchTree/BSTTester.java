@@ -38,12 +38,21 @@ public class BSTTester {
 		tree.ArrayToTree(arr);
 
 		System.out.println("arr to tree in order: ");
-		int[] arr2 = tree.postorder_traversal();
+		int[] arr2 = tree.inorder_traversal();
 		toPrint = "";
 		for (int i : arr2){
 			toPrint += i + ", ";
 		}
 		System.out.println(toPrint);
 
+		tree.delete(3);
+		tree.delete(5);
+		tree.delete(1);
+		arr = tree.inorder_traversal();
+		toPrint = "";
+		for (int i : arr){
+			toPrint += i + ", ";
+		}
+		System.out.println("deleted 3, 5, 1: " + toPrint);
 	}
 }

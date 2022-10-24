@@ -83,9 +83,66 @@ public class BST{
     }
 
     public void delete(int item){
-
+        if (!find(item)) {return;}
+        if (root.data == item){
+            if (root.right == null && root.left == null){
+                root = null;
+            } else if (root.right == null){
+                root = root.left;
+            } else if (root.left == null){
+                root = root.right;
+            } else {
+                root.data = deleteMax(root.left);
+            }
+        } else {
+            if (item > root.data){
+                delete(item, root.right, root);
+            } else {
+                delete(item, root.left, root);
+            }
+        }
+        num_nodes--;
     }
 
+    private void delete(int item, TreeNode node, TreeNode parent){
+        if (node.data == item){
+            if (node.right == null && node.left == null){
+                if (node.data < parent.data){
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            } else if (node.right == null){
+                if (node.data < parent.data){
+                    parent.left = node.left;
+                } else {
+                    parent.right = node.left;
+                }
+            } else if (node.left == null){
+                if (node.data < parent.data){
+                    parent.left = node.right;
+                } else {
+                    parent.right = node.right;
+                }
+            } else {
+                node.data = deleteMax(node.left);
+            }
+        } else if (item > node.data){
+            delete(item, node.right, node);
+        } else {
+            delete(item, node.left, node);
+        }
+    }
+
+    private int deleteMax(TreeNode node){
+        while(node.right != null){
+            node = node.right;
+        }
+        int hold = node.data;
+        delete(hold);
+        num_nodes++;
+        return hold;
+    }
 
     public void ArrayToTree(int[] array){
         root = ArrayToTree_helper(array, 0, array.length - 1);
