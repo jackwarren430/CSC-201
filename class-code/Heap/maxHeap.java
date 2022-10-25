@@ -26,13 +26,36 @@ public class maxHeap{
         return toReturn;
     }
 
-    private void siftDown(int index){
-        int parent_index, max_child_index;
-        while (heap.get(parent_index) < heap.get()){
-            
+    private void siftDown(int idx){
+        int parent_idx = idx;
+        //int max_child_idx = heap.get(idx*2 + 1) > heap.get(idx*2+2) ? heap.get(idx*2+1) : heap.get(idx*2+1);
+        while (parent_idx < size/2 - 1){
+            if (2 * parent_idx + 1 >= size){break;}
+            if(2 * parent_idx + 2 >= size){
+                if (heap.get(parent_idx) < heap.get(2 * parent_idx + 1)){
+                    swap(parent_idx, parent_idx * 2 + 1);
+                    parent_idx = parent_idx * 2 + 1;
+                }
+            } else {
+                if (heap.get(parent_idx * 2 + 1) < heap.get(parent_idx * 2 + 2)){
+                    swap(parent_idx, parent_idx * 2 + 2);
+                    parent_idx = parent_idx * 2 + 2;
+                } else {
+                    swap(parent_idx, parent_idx * 2 + 1);
+                    parent_idx = parent_idx * 2 + 1;
+                }
+            }
         }
     }
 
+    private void swap(int idx, int idx2){
+        if (idx < 0 || idx >= size - 1 || idx2 < 0 || idx2 >= size){
+            return;
+        }
+        int hold = heap.get(idx);
+        heap.set(idx, heap.get(idx2));
+        heap.set(idx2, hold);
+    }
     /* insert a new value into the maxHeap.
      If `val` is a duplicate of an existing heap item, perform insert as usual but leave the pre-existing heap item at its current location.
     */
@@ -40,3 +63,6 @@ public class maxHeap{
         // TODO: implement.
     }
 }
+
+
+
