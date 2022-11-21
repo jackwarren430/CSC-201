@@ -47,5 +47,22 @@ public class TestGraphMatrix{
         System.out.println(big.hasPath(2, 5));
         big.resetVisited();
         System.out.println(big.topologicalSort());
+        System.out.println("---------\n");
+
+        GraphMatrix test = new GraphMatrix();
+        test.init(10);
+        test.addEdge(0, 1, 1);
+        test.addEdge(0, 4, 1);
+        test.addEdge(1, 2, 1);
+        test.addEdge(1, 3, 1);
+        test.addEdge(3, 5, 1);
+        test.addEdge(5, 6, 1);
+        test.addEdge(6, 2, 1);
+        test.addEdge(2, 4, 1);
+        test.addEdge(7, 8, 1);
+        test.addEdge(8, 9, 1);
+        System.out.println(test.BFS(0));
+        System.out.println(test.topologicalSort());
+
     }
 }
