@@ -7,15 +7,17 @@ public class TestGraphMatrix{
         System.out.println(matrix);
         matrix.addEdge(0, 1, 1);
         matrix.addEdge(0, 2, 1);
-        matrix.addEdge(1, 3, 1);
-        matrix.addEdge(2, 4, 1);
         matrix.addEdge(1, 4, 1);
+        matrix.addEdge(2, 4, 1);
+        matrix.addEdge(2, 3, 1);
         System.out.println(matrix);
         System.out.println(matrix.neighbors(0));
         System.out.println(matrix.neighbors(4));
         System.out.println(matrix.neighbors(1));
         ArrayList<Integer> bfs = matrix.BFS(0);
         System.out.println(bfs);
+        matrix.resetVisited();
+        System.out.println(matrix.topologicalSort());
         System.out.println("----------\n");
         GraphMatrix big = new GraphMatrix();
         big.init(8);
@@ -43,5 +45,7 @@ public class TestGraphMatrix{
         System.out.println(big.BFS(2));
         big.resetVisited();
         System.out.println(big.hasPath(2, 5));
+        big.resetVisited();
+        System.out.println(big.topologicalSort());
     }
 }

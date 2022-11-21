@@ -120,7 +120,32 @@ public class GraphMatrix implements Graph{
     }
 
     public ArrayList<Integer> topologicalSort(){
-        return null;
+        ArrayList<Integer> toReturn = new ArrayList<Integer>();
+        int[] in_degrees = new int[nodes];
+        Queue<Integer> q = new LinkedList<Integer>();
+        for (int i = 0; i < nodes; i++){
+            for (int j = 0; j < nodes; j++){
+                if (matrix[j][i] > 0){
+                    in_degrees[i]++;
+                }
+            }
+            if (in_degrees[i] == 0){
+                q.add(i);
+            }
+        }
+        while (q.peek() != null){
+            int curr = q.remove();
+            ArrayList<Integer> neighbors = neighbors(curr);
+            for (int i : neighbors){
+                in_degrees[i]--;
+                if (in_degrees[i] == 0){
+                    q.add(i);
+                }
+            }
+            toReturn.add(curr);
+
+        }
+        return toReturn;
     }
 
     public String toString(){
