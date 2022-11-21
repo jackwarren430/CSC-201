@@ -3,14 +3,14 @@ import java.util.*;
 public class GraphMatrix implements Graph{
     
     private int[][] matrix;
-    private int[][] visited;
+    private boolean[] visited;
     private int nodes;
     private int edges;
 
 
     public void init(int n){
         matrix = new int[n][n];
-        visited = new int[n][n];
+        visited = new boolean[n];
         nodes = n;
         edges = 0;
     }
@@ -79,30 +79,44 @@ public class GraphMatrix implements Graph{
         ArrayList<Integer> toReturn = new ArrayList<Integer>();
         for (int i = 0; i < nodes; i++){
             int from = matrix[v][i];
-            int to = matrix[i][v];
-            if (from != to){
-                if (from > 0 && to > 0){
-                    toReturn.add(i);
-                } else if (from > 0){
-                    toReturn.add(i);
-                } else if (to > 0){
-                    toReturn.add(i);
-                }
-            }
+            if (from > 0){
+                toReturn.add(i);
+            } 
         }
         return toReturn;
     }
 
     public void resetVisited(){
-        visited = new int[nodes][nodes];
+        visited = new boolean[nodes];
     }
 
     public ArrayList<Integer> BFS(int v){
-        return null;
+        ArrayList<Integer> toReturn = new ArrayList<Integer>();
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(v);
+        visited[v] = true;
+        while (q.peek() != null){
+            int curr = q.remove();
+            toReturn.add(curr);
+            ArrayList<Integer> neighbors = neighbors(curr);
+            for (int i : neighbors){
+                if (visited[i] == false){
+                    q.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+        return toReturn;
+
     }
 
     public boolean hasPath(int v, int w){
-        return true;
+        if (v >= nodes || w >= nodes){
+            System.out.println("ERROR: node does not exist");
+            return false;
+        }
+        ArrayList<Integer> bfs = BFS(v);
+        return bfs.contains(w) ? true : false;
     }
 
     public ArrayList<Integer> topologicalSort(){
